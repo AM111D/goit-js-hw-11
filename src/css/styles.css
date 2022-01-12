@@ -3,8 +3,8 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fafafa;
@@ -12,9 +12,81 @@ body {
   line-height: 1.5;
 }
 
-#search-box {
+#search-form {
   font: inherit;
   padding: 8px;
   max-width: 320px;
   margin-bottom: 16px;
+}
+
+.gallery {
+  display: grid;
+  max-width: 100vw;
+  /* grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  /* grid-auto-rows: 300px; */
+  /* grid-auto-flow: dense; */
+  grid-gap: 12px;
+  justify-content: center;
+  /* margin-left: auto;
+  margin-right: auto; */
+}
+
+.photo-card {
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+img {
+  width: 100%;
+  height: 240px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  font-size: 12px;
+}
+
+.search-form {
+  display: block;
+  margin: 0 auto;
+}
+
+.search-form input {
+  border: 2px solid #eee;
+  border-radius: 5px;
+  font-size: 18px;
+  display: block;
+  margin: 0 auto;
+  color: green;
+  outline: none;
+  padding: 5px;
+}
+.search-form input:focus {
+  border-color: green;
+}
+.search-form button {
+  display: block;
+  margin: 0 auto;
+  font-size: 18px;
+  margin-top: 10px;
+  padding: 5px 20px;
+  background-color: green;
+  color: #fff;
+  border: inherit;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+}
+
+.search-form button:active {
+  background-color: #00ff7f;
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+}
+
+.search-form input::placeholder {
+  font-size: 12px;
 }

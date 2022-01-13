@@ -1,38 +1,45 @@
-import Notiflix from 'notiflix';
-import axios, { Axios } from "axios";
-import SimpleLightbox from "simplelightbox";
-import {fetchImages} from './fetchImages';
-import {render} from "./render";
-
 import './css/styles.css';
-import 'simplelightbox/dist/simple-lightbox.min.css';
+import ImagesApiService from './js/api-service';
+import hitsTpl from './templates/hits.hbs';
 
 const refs = {
-	form: document.querySelector('#search-form'),
-	gallery: document.querySelector('.gallery'),
+	searchForm: document.querySelector('#search-form'),
+	searchBtn: document.querySelector('.searchBtn'),
+	galleryContainer: document.querySelector('.gallery'),
+	loadMoreBtn: document.querySelector('.load-more'),
 }
 
-refs.form.addEventListener('submit', onSubmitBtnClick);
+const imagesApiService = new ImagesApiService();
+console.log(imagesApiService);
 
-function onSubmitBtnClick(e) {
+refs.searchForm.addEventListener('submit', onSearch);
+refs.loadMoreBtn.addEventListener('click', onLoadMore);
+
+function onSearch(e) {
 	e.preventDefault();
-	const form = e.currentTarget.elements;
-	const value = form.searchQuery.value;
-
-fetchImages(value)
-.then(response => {
-if(response.hits.length === 0){
-	Notiflix.Notify.info("Sorry, there are no images matching your search query. Please try again.")
-}
-	render(response.hits, refs.gallery);
 	
-})
-.catch((error) => {Notiflix.Notify.error("ERROR")});
-e.currentTarget.reset();
+	imagesApiService.searchQuery = e.currentTarget.elements.searchQuery.value;
+
+	imagesApiService.resetPage();
+
+	imagesApiService.fetchImages().then(hits => {
+		clearContainer()
+		appendHitsMarkup(hits)
+	});
 }
 
+function onLoadMore() {
+	imagesApiService.fetchImages().then(appendHitsMarkup);
+	// console.log(imagesApiService.fetchImages())
+}
 
+function appendHitsMarkup(hits) {
+	refs.galleryContainer.insertAdjacentHTML('beforeend', hitsTpl(hits));
+}
 
+function clearContainer() {
+	refs.galleryContainer.innerHTML = '';
+}
 
 
 

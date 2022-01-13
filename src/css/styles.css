@@ -106,3 +106,7 @@ img {
   color: rgb(0, 76, 240);
   /* display: none; */
 }
+
+.is-hidden {
+  display: none;
+}

@@ -15,12 +15,10 @@ export default class ImagesApiService {
         const url = `${BASE_URL}/?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.perPage}`;
          return fetch(url)
              .then(responce => responce.json())
-             .then(({hits}) => {
-                 
+             .then(({hits, totalHits}) => {
                  this.incrementPage();
-                //  console.log(data.hits)
+                //  console.log(hits)
                  return hits;
-                 
              });
     }
     

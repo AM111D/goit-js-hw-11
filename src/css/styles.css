@@ -101,6 +101,7 @@ img {
   margin: 0 auto;
   font-size: 18px;
   margin-top: 10px;
+  border-radius: 25px;
   padding: 5px 20px;
   background-color: rgb(252, 255, 85);
   color: rgb(0, 76, 240);

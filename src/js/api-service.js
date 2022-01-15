@@ -7,19 +7,23 @@ export default class ImagesApiService {
         this.searchQuery = '';
         this.page = 1;
         this.perPage = 40;
+        
     }
 
     fetchImages() {
-        console.log(this);
+        // console.log(this);
 
         const url = `${BASE_URL}/?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.perPage}`;
          return fetch(url)
              .then(responce => responce.json())
-             .then(({hits, totalHits}) => {
+             .then(data => {
                  this.incrementPage();
-                //  console.log(hits)
-                 return hits;
-             });
+                //  console.log(data)
+                //  console.log(this.totalImages)
+                 return data;
+
+             })
+            .catch(error => console.error(error));;
     }
     
     incrementPage() {

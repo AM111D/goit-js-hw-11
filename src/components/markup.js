@@ -12,7 +12,7 @@ export default function renderListImage(hits) {
       }) => {
         return `
           <div class="photo-card">
-          <a href="${largeImageURL}" class="link" ><img class=gallery-img src="${webformatURL}" alt="${tags}" loading="lazy" /></a>
+          <a href="${largeImageURL}" class="link" ><img class=gallery-img src="${webformatURL}" alt="${tags}" width=500px  height=320px loading="lazy" /></a>
           <div class="info">
             <p class="info-item">
               <b>Likes</b> ${likes}

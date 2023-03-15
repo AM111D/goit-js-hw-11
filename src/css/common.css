@@ -4,16 +4,16 @@
 
 .search-form input {
     width: 250px;
-    height: 25px;
-    font-size: 12px;
+    height: 35px;
     margin-top: 50px;
     margin-bottom: 70px;
+    font-size: 25px;
 }
 
 .search-form button {
-    width: 80px;
-    font-size: 15px;
-    height: 25px;
+    width: 118px;
+    height: 40px;
+    font-size: 25px;
 }
 
 .load-more {

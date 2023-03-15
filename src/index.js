@@ -23,24 +23,6 @@ async function onSearch(e) {
   imagesApiService.searchQuery = e.currentTarget.elements.searchQuery.value;
   imagesApiService.resetPage();
 
-  // imagesApiService.fetchArticles().then(({ data }) => {
-  //   const { hits, totalHits } = data;
-  //   if (totalHits === 0) {
-  //     return Notiflix.Notify.failure(
-  //       'Sorry, there are no images matching your search query. Please try again.'
-  //     );
-  //   }
-  //   Notiflix.Notify.success(`"Hooray! We found ${totalHits} images.`);
-
-  //   const lightbox = new SimpleLightbox('.gallery a');
-  //   lightbox.on('show.simplelightbox', function () {});
-
-  //   refs.imagesContainer.insertAdjacentHTML('beforeend', renderListImage(hits));
-  //   imagesApiService.incrementPage();
-  //   scroll();
-  //   registerIntersectionObserve();
-  // });
-
   try {
     const { hits, totalHits } = await imagesApiService.fetchArticles();
 
@@ -66,22 +48,22 @@ async function onSearch(e) {
 function registerIntersectionObserve() {
   const onEntry = entries => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        if (entry.isIntersecting && imagesApiService.searchQuery !== '') {
-          imagesApiService.fetchArticles().then(data => {
-            if (!data.hits.length) {
-              Notiflix.Notify.info(
-                `We're sorry, but you've reached the end of search results.`
-              );
-            }
-            refs.imagesContainer.insertAdjacentHTML(
-              'beforeend',
-              renderListImage(data.hits)
+      // if (entry.isIntersecting) {
+      if (entry.isIntersecting && imagesApiService.searchQuery !== '') {
+        imagesApiService.fetchArticles().then(data => {
+          if (!data.hits.length) {
+            return Notiflix.Notify.info(
+              `We're sorry, but you've reached the end of search results.`
             );
-            imagesApiService.incrementPage();
-          });
-        }
+          }
+          refs.imagesContainer.insertAdjacentHTML(
+            'beforeend',
+            renderListImage(data.hits)
+          );
+          imagesApiService.incrementPage();
+        });
       }
+      // }
     });
   };
 

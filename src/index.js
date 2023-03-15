@@ -23,7 +23,8 @@ function onSearch(e) {
   imagesApiService.searchQuery = e.currentTarget.elements.searchQuery.value;
   imagesApiService.resetPage();
 
-  imagesApiService.fetchArticles().then(({ hits, totalHits }) => {
+  imagesApiService.fetchArticles().then(data => {
+    const { hits, totalHits } = data;
     if (totalHits === 0) {
       return Notiflix.Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'

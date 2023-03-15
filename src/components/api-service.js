@@ -6,6 +6,7 @@ export default class ImagesApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
+    this.perPage = 40;
   }
 
   fetchArticles() {
@@ -14,7 +15,7 @@ export default class ImagesApiService {
       .then(responce => responce.json())
       .then(data => {
         this.incrementPage();
-        //  console.log(data)
+        console.log(data);
         //  console.log(this.totalImages)
         return data;
       })

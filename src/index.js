@@ -2,8 +2,8 @@ import './css/common.css';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import ImagesApiService from './components/api-service';
-import renderListImage from './components/markup';
+import { ImagesApiService } from './components/api-service';
+import { renderListImage } from './components/markup';
 import { scroll } from './components/scroll';
 
 const refs = {

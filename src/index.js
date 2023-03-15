@@ -2,8 +2,8 @@ import './css/common.css';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import { ImagesApiService } from './components/api-service';
-import { renderListImage } from './components/markup';
+import ImagesApiService from './components/api-service';
+import renderListImage from './components/markup';
 import { scroll } from './components/scroll';
 
 const refs = {
@@ -16,15 +16,34 @@ const imagesApiService = new ImagesApiService();
 
 refs.searchForm.addEventListener('submit', onSearch);
 
-function onSearch(e) {
+async function onSearch(e) {
   e.preventDefault();
   refs.imagesContainer.innerHTML = '';
 
   imagesApiService.searchQuery = e.currentTarget.elements.searchQuery.value;
   imagesApiService.resetPage();
 
-  imagesApiService.fetchArticles().then(({ data }) => {
-    const { hits, totalHits } = data;
+  // imagesApiService.fetchArticles().then(({ data }) => {
+  //   const { hits, totalHits } = data;
+  //   if (totalHits === 0) {
+  //     return Notiflix.Notify.failure(
+  //       'Sorry, there are no images matching your search query. Please try again.'
+  //     );
+  //   }
+  //   Notiflix.Notify.success(`"Hooray! We found ${totalHits} images.`);
+
+  //   const lightbox = new SimpleLightbox('.gallery a');
+  //   lightbox.on('show.simplelightbox', function () {});
+
+  //   refs.imagesContainer.insertAdjacentHTML('beforeend', renderListImage(hits));
+  //   imagesApiService.incrementPage();
+  //   scroll();
+  //   registerIntersectionObserve();
+  // });
+
+  try {
+    const { hits, totalHits } = await imagesApiService.fetchArticles();
+
     if (totalHits === 0) {
       return Notiflix.Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
@@ -39,7 +58,9 @@ function onSearch(e) {
     imagesApiService.incrementPage();
     scroll();
     registerIntersectionObserve();
-  });
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 function registerIntersectionObserve() {

@@ -8,26 +8,17 @@ export default class ImagesApiService {
     this.page = 1;
   }
 
-  async fetchArticles() {
-    try {
-      const {
-        data: { hits, totalHits },
-      } = await axios.get(BASE_URL, {
-        params: {
-          key: API_KEY,
-          q: this.searchQuery,
-          image_type: 'photo',
-          orientation: 'horizontal',
-          safesearch: true,
-          per_page: 40,
-          page: this.page,
-        },
-      });
-
-      return { hits, totalHits };
-    } catch (error) {
-      console.error(error);
-    }
+  fetchArticles() {
+    const url = `${BASE_URL}/?key=${API_KEY}&q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.perPage}`;
+    return fetch(url)
+      .then(responce => responce.json())
+      .then(data => {
+        this.incrementPage();
+        //  console.log(data)
+        //  console.log(this.totalImages)
+        return data;
+      })
+      .catch(error => console.error(error));
   }
 
   incrementPage() {

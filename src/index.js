@@ -23,21 +23,18 @@ function onSearch(e) {
   imagesApiService.searchQuery = e.currentTarget.elements.searchQuery.value;
   imagesApiService.resetPage();
 
-  imagesApiService.fetchArticles().then(data => {
-    if (data.totalHits === 0) {
+  imagesApiService.fetchArticles().then(({ hits, totalHits }) => {
+    if (totalHits === 0) {
       return Notiflix.Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
     }
-    Notiflix.Notify.success(`"Hooray! We found ${data.totalHits} images.`);
+    Notiflix.Notify.success(`"Hooray! We found ${totalHits} images.`);
 
     const lightbox = new SimpleLightbox('.gallery a');
     lightbox.on('show.simplelightbox', function () {});
 
-    refs.imagesContainer.insertAdjacentHTML(
-      'beforeend',
-      renderListImage(data.hits)
-    );
+    refs.imagesContainer.insertAdjacentHTML('beforeend', renderListImage(hits));
     imagesApiService.incrementPage();
     scroll();
     registerIntersectionObserve();

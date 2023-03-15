@@ -6,14 +6,9 @@ export default class ImagesApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
-    // this.perPage = 40;
   }
 
   async fetchArticles() {
-    console.log(this);
-
-    const url = `${BASE_URL}/?key=${API_KEY}&q=${this.searchQuery}&image_type='photo'&orientation='horizontal'&safesearch='true'&per_page=20&page=${this.page}`;
-
     try {
       const {
         data: { hits, totalHits },
@@ -29,7 +24,6 @@ export default class ImagesApiService {
         },
       });
 
-      // console.log({ hits, totalHits });
       return { hits, totalHits };
     } catch (error) {
       console.error(error);

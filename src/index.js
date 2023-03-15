@@ -23,7 +23,7 @@ function onSearch(e) {
   imagesApiService.searchQuery = e.currentTarget.elements.searchQuery.value;
   imagesApiService.resetPage();
 
-  imagesApiService.fetchArticles().then(data => {
+  imagesApiService.fetchArticles().then(({ data }) => {
     const { hits, totalHits } = data;
     if (totalHits === 0) {
       return Notiflix.Notify.failure(
